@@ -1,0 +1,31 @@
+{
+    "configurations": [
+        {
+            "name": "ESP32-Win",
+            "includePath": [
+                "${workspaceRoot}",
+                "D:/msys32/opt/xtensa-esp32-elf/lib/gcc/xtensa-esp32-elf/8.2.0/include",
+                "D:/msys32/opt/xtensa-esp32-elf/lib/gcc/xtensa-esp32-elf/8.2.0/include-fixed",
+                "D:/msys32/opt/xtensa-esp32-elf/xtensa-esp32-elf/include",
+                "D:/msys32/home/Gianni/esp/esp-idf/components",
+                "D:/msys32/home/Gianni/esp/esp-idf/components/driver/include",
+                "D:/msys32/home/Gianni/esp/esp-idf/components/freertos/include",
+                "D:/msys32/home/Gianni/esp/esp-idf/components/xtensa/include"
+            ],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "${workspaceRoot}",
+                    "D:/msys32/opt/xtensa-esp32-elf/lib/gcc/xtensa-esp32-elf/8.2.0/include",
+                    "D:/msys32/opt/xtensa-esp32-elf/lib/gcc/xtensa-esp32-elf/8.2.0/include-fixed",
+                    "D:/msys32/opt/xtensa-esp32-elf/xtensa-esp32-elf/include",
+                    "D:/msys32/home/Gianni/esp/esp-idf/components/driver/include",
+                    "D:/msys32/home/Gianni/esp/esp-idf/components"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceRoot}/.vscode/browse.vc.db"
+            }
+        }
+    ],
+    "version": 4
+}
