@@ -12,7 +12,7 @@
                 "app"
             ],
             "presentation": {
-                "reveal": "always",
+                "reveal": "always"
             },
             "problemMatcher": {
                 "owner": "cpp",
@@ -35,8 +35,8 @@
                 "app-clean"
             ],
             "presentation": {
-                "reveal": "always",
-            },
+                "reveal": "always"
+            }
         },
         {
             "label": "flash app",
@@ -46,27 +46,40 @@
                 "app-flash"
             ],
             "presentation": {
-                "reveal": "always",
+                "reveal": "always"
             },
+            "problemMatcher": []
         },
         {
             "label": "monitor",
-            "type":"process",
+            "type": "process",
             "windows": {
                 "command": "D:/msys32/mingw32.exe",
                 "args": [
                     "make",
                     "monitor"
-                ],                    
+                ]
             },
             "presentation": {
-                "reveal": "always",
+                "reveal": "always"
             },
-            "problemMatcher": []            
+            "problemMatcher": []
+        },
+        {
+            "label": "monitor inline",
+            "command": "make",
+            "type": "shell",
+            "args": [
+                "monitor"
+            ],
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": []
         },
         {
             "label": "menuconfig",
-            "type":"process",
+            "type": "process",
             "windows": {
                 "command": "D:/msys32/mingw32.exe",
                 "args": [
@@ -75,7 +88,7 @@
                 ]
             },
             "presentation": {
-                "reveal": "always",
+                "reveal": "always"
             },
             "problemMatcher": []
         }

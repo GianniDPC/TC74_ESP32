@@ -59,5 +59,5 @@ void select_temperature_register(i2c_cmd_handle_t cmd);
 void select_config_register(i2c_cmd_handle_t cmd);
 void enable_standby(void);
 void disable_standby(void);
-float request_standby_value(temp_unit unit);
+int is_standby();
 float extract_value_from_buffer(int temp, temp_unit unit);

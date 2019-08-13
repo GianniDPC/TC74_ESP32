@@ -1,4 +1,6 @@
 #include "tc74.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 static TC74 tc74;
 
@@ -63,6 +65,7 @@ void TC74_init(int port_num, int variant)
     tc74.I2C_ADDRESS = variant;
 
     i2c_init();
+    disable_standby();
 }
 
 float read_TC74(temp_unit unit)
@@ -94,6 +97,8 @@ float read_TC74(temp_unit unit)
 
 void enable_standby()
 {
+    /* Freeze the temperature register */
+
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
 
     // START bit
@@ -115,6 +120,8 @@ void enable_standby()
 
 void disable_standby()
 {
+    /* Unfreeze the temperature register */
+
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
 
     // START bit
@@ -132,9 +139,11 @@ void disable_standby()
     // END transmission
     i2c_master_cmd_begin(tc74.I2C_PORT_NUM, cmd, 1000 / portTICK_PERIOD_MS);
     i2c_cmd_link_delete(cmd);
+
+    vTaskDelay(250 / portTICK_PERIOD_MS);
 }
 
-float request_standby_value(temp_unit unit)
+int is_standby()
 {
     uint8_t data[1] = {0};
 
@@ -146,7 +155,7 @@ float request_standby_value(temp_unit unit)
     // Select configuration register
     select_config_register(cmd);
 
-    // Start reading temperature data
+    // Start reading data
     i2c_master_start(cmd);
     i2c_master_write_byte(cmd, tc74.I2C_ADDRESS << 1 | READ_BIT, ACK_CHECK_EN);
     i2c_master_read(cmd, data, 1, NACK_VAL);
@@ -158,5 +167,13 @@ float request_standby_value(temp_unit unit)
     i2c_master_cmd_begin(tc74.I2C_PORT_NUM, cmd, 1000 / portTICK_PERIOD_MS);
     i2c_cmd_link_delete(cmd);
 
-    return extract_value_from_buffer(data[0], unit);
+    switch (data[0])
+    {
+    case 0x40:
+        return 0;
+    case 0x80:
+        return 1;
+    default:
+        return -1;
+    }
 }
