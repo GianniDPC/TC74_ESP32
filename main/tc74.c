@@ -6,6 +6,8 @@ static TC74 tc74;
 
 esp_err_t i2c_init()
 {
+    /*!< Initialize ESP32 I2C */
+
     i2c_config_t conf;
     conf.mode = I2C_MODE_MASTER;
     conf.sda_io_num = SDA;
@@ -22,6 +24,8 @@ esp_err_t i2c_init()
 
 void select_temperature_register(i2c_cmd_handle_t cmd)
 {
+    /*!< Select the TEMPERATURE register */
+
     // Slave address
     i2c_master_write_byte(cmd, tc74.I2C_ADDRESS << 1 | WRITE_BIT, ACK_CHECK_EN);
 
@@ -31,6 +35,8 @@ void select_temperature_register(i2c_cmd_handle_t cmd)
 
 void select_config_register(i2c_cmd_handle_t cmd)
 {
+    /*!< Select the CONFIG register */
+
     // Slave address
     i2c_master_write_byte(cmd, tc74.I2C_ADDRESS << 1 | WRITE_BIT, ACK_CHECK_EN);
 
@@ -40,6 +46,8 @@ void select_config_register(i2c_cmd_handle_t cmd)
 
 float extract_value_from_buffer(int temp, temp_unit unit)
 {
+    /*!< Convert value to negative if needed and convert to Fahrenheit is supplied */
+
     // Two's complement conversion
     if (temp & 0x80)
     {
@@ -61,6 +69,8 @@ float extract_value_from_buffer(int temp, temp_unit unit)
 
 void TC74_init(int port_num, int variant)
 {
+    /*!< Initialize TC74 */
+
     tc74.I2C_PORT_NUM = port_num;
     tc74.I2C_ADDRESS = variant;
 
@@ -70,6 +80,8 @@ void TC74_init(int port_num, int variant)
 
 float read_TC74(temp_unit unit)
 {
+    /*!< Read temperature value from TEMPERATURE register */
+
     uint8_t data[1] = {0};
 
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
@@ -97,7 +109,7 @@ float read_TC74(temp_unit unit)
 
 void enable_standby()
 {
-    /* Freeze the temperature register */
+    /*!< Freeze the temperature register */
 
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
 
@@ -120,7 +132,7 @@ void enable_standby()
 
 void disable_standby()
 {
-    /* Unfreeze the temperature register */
+    /*!< Unfreeze the temperature register */
 
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
 
@@ -145,6 +157,8 @@ void disable_standby()
 
 int is_standby()
 {
+    /*!< Check if chip is in standby mode */
+
     uint8_t data[1] = {0};
 
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
